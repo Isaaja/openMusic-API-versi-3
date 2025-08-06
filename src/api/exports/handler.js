@@ -23,7 +23,7 @@ class ExportsHandler {
       targetEmail: request.payload.targetEmail,
     };
 
-    await this._service.sendMessage("export:songs", JSON.stringify(message));
+    await this._service.sendMessage("export:playlists", JSON.stringify(message));
 
     const response = h.response({
       status: "success",
