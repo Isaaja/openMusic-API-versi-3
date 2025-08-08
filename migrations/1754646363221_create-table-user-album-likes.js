@@ -1,29 +1,20 @@
-/**
- * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
- */
-
-/**
- * @param pgm {import('node-pg-migrate').MigrationBuilder}
- * @param run {() => void | undefined}
- * @returns {Promise<void> | void}
- */
 const up = (pgm) => {
   pgm.createTable("user_album_likes", {
     id: {
-      type: "VARCHAR(50)",
+      type: "VARCHAR(100)",
       primaryKey: true,
     },
     user_id: {
-      type: "VARCHAR(50)",
+      type: "VARCHAR(100)",
       notNull: true,
     },
     album_id: {
-      type: "VARCHAR(50)",
+      type: "VARCHAR(100)",
       notNull: true,
     },
   });
 
-  // Tambahkan foreign key ke tabel users
+  // Foreign key ke tabel users
   pgm.addConstraint(
     "user_album_likes",
     "fk_user_album_likes.user_id_users.id",
@@ -36,7 +27,7 @@ const up = (pgm) => {
     }
   );
 
-  // Tambahkan foreign key ke tabel albums
+  // Foreign key ke tabel albums
   pgm.addConstraint(
     "user_album_likes",
     "fk_user_album_likes.album_id_albums.id",
@@ -49,17 +40,12 @@ const up = (pgm) => {
     }
   );
 
-  // Supaya 1 user hanya bisa like 1 kali untuk album yang sama
+  // Unik hanya pada kombinasi user_id + album_id
   pgm.addConstraint("user_album_likes", "unique_user_album_like", {
     unique: ["user_id", "album_id"],
   });
 };
 
-/**
- * @param pgm {import('node-pg-migrate').MigrationBuilder}
- * @param run {() => void | undefined}
- * @returns {Promise<void> | void}
- */
 const down = (pgm) => {
   pgm.dropTable("user_album_likes");
 };
