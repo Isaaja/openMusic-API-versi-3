@@ -21,6 +21,10 @@ class UploadsHandler {
     await this._albumsService.getAlbumById(id);
 
     const filename = await this._service.writeFile(cover, cover.hapi);
+    // const uploadCoverImages = await this._albumsService.addAlbumCover(
+    //   id,
+    //   filename
+    // );
     const response = h.response({
       status: "success",
       message: "Sampul berhasil diunggah",

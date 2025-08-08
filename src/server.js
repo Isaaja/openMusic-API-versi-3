@@ -4,6 +4,7 @@ const Hapi = require("@hapi/hapi");
 const Jwt = require("@hapi/jwt");
 const config = require("./utils/config");
 const path = require("path");
+const Inert = require("@hapi/inert");
 
 // albums
 const albums = require("./api/albums");
@@ -64,6 +65,7 @@ const init = async () => {
   const storageService = new StorageService(
     path.resolve(__dirname, "api/uploads/file/images")
   );
+  console.log(path.resolve(__dirname, "file"));
   const server = Hapi.server({
     port: config.app.port,
     host: config.app.host,
@@ -78,6 +80,9 @@ const init = async () => {
   await server.register([
     {
       plugin: Jwt,
+    },
+    {
+      plugin: Inert,
     },
   ]);
 
