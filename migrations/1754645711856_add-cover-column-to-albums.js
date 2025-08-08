@@ -8,7 +8,11 @@
  * @returns {Promise<void> | void}
  */
 const up = (pgm) => {
-  pgm.dropColumn("songs", "albumId");
+  pgm.addColumn("albums", {
+    cover: {
+      type: "VARCHAR(50)",
+    },
+  });
 };
 
 /**

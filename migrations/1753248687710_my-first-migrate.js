@@ -41,9 +41,6 @@ const up = (pgm) => {
     duration: {
       type: "INT",
     },
-    albumId: {
-      type: "VARCHAR(50)",
-    },
   });
 };
 
