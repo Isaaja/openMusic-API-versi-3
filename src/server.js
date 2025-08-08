@@ -65,7 +65,6 @@ const init = async () => {
   const storageService = new StorageService(
     path.resolve(__dirname, "api/uploads/file/images")
   );
-  console.log(path.resolve(__dirname, "file"));
   const server = Hapi.server({
     port: config.app.port,
     host: config.app.host,

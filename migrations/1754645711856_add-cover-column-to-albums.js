@@ -10,7 +10,7 @@
 const up = (pgm) => {
   pgm.addColumn("albums", {
     cover: {
-      type: "VARCHAR(50)",
+      type: "VARCHAR(100)",
     },
   });
 };

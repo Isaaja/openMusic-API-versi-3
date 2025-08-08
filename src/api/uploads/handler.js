@@ -21,16 +21,13 @@ class UploadsHandler {
     await this._albumsService.getAlbumById(id);
 
     const filename = await this._service.writeFile(cover, cover.hapi);
-    // const uploadCoverImages = await this._albumsService.addAlbumCover(
-    //   id,
-    //   filename
-    // );
+    await this._albumsService.addAlbumCover(
+      id,
+      `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`
+    );
     const response = h.response({
       status: "success",
       message: "Sampul berhasil diunggah",
-      data: {
-        fileLocation: `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`,
-      },
     });
     response.code(201);
     return response;
