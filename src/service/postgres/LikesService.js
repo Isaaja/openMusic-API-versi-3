@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: 0*/
 const { nanoid } = require("nanoid");
 const { Pool } = require("pg");
 const InvariantError = require("../../exceptions/InvariantError");
@@ -57,7 +58,6 @@ class LikesService {
 
       const likes = parseInt(result.rows[0].likes, 10);
 
-      // simpan ke cache
       await this._cacheService.set(`likes:${albumId}`, JSON.stringify(likes));
 
       return { likes, isCache: false };
