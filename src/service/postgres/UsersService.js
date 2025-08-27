@@ -3,9 +3,15 @@ const InvariantError = require("../../exceptions/InvariantError");
 const { nanoid } = require("nanoid");
 const bcrypt = require("bcrypt");
 const AuthenticationError = require("../../exceptions/AuthenticationsError");
+const config = require("../../utils/config");
 class UsersService {
   constructor() {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
   }
 
   async addUser({ username, password, fullname }) {

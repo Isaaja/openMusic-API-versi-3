@@ -1,10 +1,15 @@
 const { Pool } = require("pg");
 const NotFoundError = require("../../exceptions/NotFoundError");
 const AuthorizationError = require("../../exceptions/AuthorizationsError");
-
+const config = require("../../utils/config");
 class PlaylistActivitiesService {
   constructor() {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
   }
 
   async getPlaylistSongActivities(playlistId) {

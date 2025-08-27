@@ -4,9 +4,15 @@ const InvariantError = require("../../exceptions/InvariantError");
 const NotFoundError = require("../../exceptions/NotFoundError");
 const { mapSongsInPlaylistDBToModel } = require("../../utils/index");
 const AuthorizationError = require("../../exceptions/AuthorizationsError");
+const config = require("../../utils/config");
 class PlaylistsService {
   constructor() {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
   }
 
   async addPlaylist({ name, owner }) {

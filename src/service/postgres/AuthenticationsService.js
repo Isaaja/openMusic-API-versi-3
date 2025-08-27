@@ -1,9 +1,14 @@
 const { Pool } = require("pg");
 const InvariantError = require("../../exceptions/InvariantError");
-
+const config = require("../../utils/config");
 class AuthenticationsService {
   constructor() {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
   }
 
   async addRefreshToken(token) {

@@ -3,10 +3,15 @@ const { nanoid } = require("nanoid");
 const { Pool } = require("pg");
 const InvariantError = require("../../exceptions/InvariantError");
 const NotFoundError = require("../../exceptions/NotFoundError");
-
+const config = require("../../utils/config");
 class LikesService {
   constructor(cacheService) {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
     this._cacheService = cacheService;
   }
 

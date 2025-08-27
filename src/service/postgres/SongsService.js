@@ -2,9 +2,15 @@ const { Pool } = require("pg");
 const { nanoid } = require("nanoid");
 const NotFoundError = require("../../exceptions/NotFoundError");
 const InvariantError = require("../../exceptions/InvariantError");
+const config = require("../../utils/config");
 class SongsService {
   constructor() {
-    this._pool = new Pool();
+    this._pool = new Pool({
+      connectionString: config.postgres.databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
   }
 
   async addSong({ title, year, genre, performer, duration, albumId }) {
