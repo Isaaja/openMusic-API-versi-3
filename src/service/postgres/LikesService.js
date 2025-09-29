@@ -6,12 +6,7 @@ const NotFoundError = require("../../exceptions/NotFoundError");
 const config = require("../../utils/config");
 class LikesService {
   constructor(cacheService) {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    this._pool = new Pool();
     this._cacheService = cacheService;
   }
 

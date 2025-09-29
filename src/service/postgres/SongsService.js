@@ -5,12 +5,7 @@ const InvariantError = require("../../exceptions/InvariantError");
 const config = require("../../utils/config");
 class SongsService {
   constructor() {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    this._pool = new Pool();
   }
 
   async addSong({ title, year, genre, performer, duration, albumId }) {
