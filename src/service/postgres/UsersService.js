@@ -6,12 +6,7 @@ const AuthenticationError = require("../../exceptions/AuthenticationsError");
 const config = require("../../utils/config");
 class UsersService {
   constructor() {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    this._pool = new Pool();
   }
 
   async addUser({ username, password, fullname }) {

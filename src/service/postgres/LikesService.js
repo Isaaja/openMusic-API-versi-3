@@ -5,14 +5,9 @@ const InvariantError = require("../../exceptions/InvariantError");
 const NotFoundError = require("../../exceptions/NotFoundError");
 const config = require("../../utils/config");
 class LikesService {
-  constructor(cacheService) {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
-    this._cacheService = cacheService;
+  constructor() {
+    this._pool = new Pool();
+    // this._cacheService = cacheService;
   }
 
   async postLike({ userId, albumId }) {
@@ -23,7 +18,7 @@ class LikesService {
         values: [id, userId, albumId],
       };
       const result = await this._pool.query(query);
-      await this._cacheService.delete(`likes:${albumId}`);
+      // await this._cacheService.delete(`likes:${albumId}`);
       return result.rows[0].id;
     } catch (error) {
       if (error.code === "23505") {
@@ -44,16 +39,16 @@ class LikesService {
       throw new NotFoundError("Like tidak ditemukan");
     }
 
-    await this._cacheService.delete(`likes:${albumId}`);
+    // await this._cacheService.delete(`likes:${albumId}`);
     return result.rows;
   }
 
   async getLike(albumId) {
     try {
-      const result = await this._cacheService.get(`likes:${albumId}`);
+      // const result = await this._cacheService.get(`likes:${albumId}`);
       return {
         likes: JSON.parse(result),
-        isCache: true,
+        // isCache: true,
       };
     } catch (error) {
       const result = await this._pool.query({
@@ -63,9 +58,9 @@ class LikesService {
 
       const likes = parseInt(result.rows[0].likes, 10);
 
-      await this._cacheService.set(`likes:${albumId}`, JSON.stringify(likes));
+      // await this._cacheService.set(`likes:${albumId}`, JSON.stringify(likes));
 
-      return { likes, isCache: false };
+      return { likes };
     }
   }
 }

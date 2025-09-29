@@ -5,14 +5,9 @@ const NotFoundError = require("../../exceptions/NotFoundError");
 const AuthorizationError = require("../../exceptions/AuthorizationsError");
 const config = require("../../utils/config");
 class CollaborationsService {
-  constructor(cacheService) {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
-    this._cacheService = cacheService;
+  constructor() {
+    this._pool = new Pool();
+    // this._cacheService = cacheService;
   }
 
   async addColaborations({ playlistId, userId }) {
@@ -25,7 +20,7 @@ class CollaborationsService {
     if (!result.rows.length) {
       throw new InvariantError("Collaborations gagal ditambahkan");
     }
-    await this._cacheService.delete(`likes:${userId}`);
+    // await this._cacheService.delete(`likes:${userId}`);
     return result.rows[0].id;
   }
 
@@ -72,7 +67,7 @@ class CollaborationsService {
       throw new NotFoundError("Lagu di playlist tidak ditemukan");
     }
 
-    await this._cacheService.delete(`likes:${userId}`);
+    // await this._cacheService.delete(`likes:${userId}`);
     return result.rows;
   }
 }

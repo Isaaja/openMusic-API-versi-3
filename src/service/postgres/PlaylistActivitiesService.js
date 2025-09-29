@@ -4,12 +4,7 @@ const AuthorizationError = require("../../exceptions/AuthorizationsError");
 const config = require("../../utils/config");
 class PlaylistActivitiesService {
   constructor() {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    this._pool = new Pool();
   }
 
   async getPlaylistSongActivities(playlistId) {

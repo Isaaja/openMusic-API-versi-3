@@ -6,12 +6,7 @@ const config = require("../../utils/config");
 
 class AlbumsService {
   constructor() {
-    this._pool = new Pool({
-      connectionString: config.postgres.databaseUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    this._pool = new Pool();
   }
 
   async addAlbum({ name, year }) {

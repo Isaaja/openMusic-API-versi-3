@@ -56,21 +56,21 @@ const likes = require("./api/likes");
 const LikesService = require("./service/postgres/LikesService");
 
 // cache
-const CacheService = require("./service/redis/CacheService");
+// const CacheService = require("./service/redis/CacheService");
 
 // exceptions
 const ClientError = require("./exceptions/ClientError");
 
 const init = async () => {
-  const cacheService = new CacheService();
+  // const cacheService = new CacheService();
   const albumsService = new AlbumsService();
   const songsService = new SongsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
   const playlistsService = new PlaylistsService();
-  const collaborationsService = new CollaborationsService(cacheService);
+  const collaborationsService = new CollaborationsService();
   const playlistsActivitiesService = new PlaylistsActivitiesService();
-  const likesService = new LikesService(cacheService);
+  const likesService = new LikesService();
   const storageService = new StorageService(
     path.resolve(__dirname, "api/uploads/file/images")
   );
