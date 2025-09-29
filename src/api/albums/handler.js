@@ -59,7 +59,6 @@ class AlbumsHandler {
       message: "Album berhasil dihapus",
     };
   }
-  
 }
 
 module.exports = AlbumsHandler;

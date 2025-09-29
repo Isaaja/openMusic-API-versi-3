@@ -2,7 +2,6 @@ const { Pool } = require("pg");
 const { nanoid } = require("nanoid");
 const NotFoundError = require("../../exceptions/NotFoundError");
 const InvariantError = require("../../exceptions/InvariantError");
-const config = require("../../utils/config");
 class SongsService {
   constructor() {
     this._pool = new Pool();
@@ -59,7 +58,8 @@ class SongsService {
   }
 
   async getSongs({ title, performer }) {
-    let baseQuery = "SELECT id, title, performer FROM songs";
+    let baseQuery =
+      "SELECT s.id,s.title, s.year, s.genre, s.performer, a.name AS album_name, a.year AS album_year FROM songs s LEFT JOIN albums a ON s.album_id = a.id;";
     const values = [];
     const conditions = [];
 
